@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<name>smartypants</name>
+	<author>PTA</author>
+	<version>0.0.1</version>
+	<type>edit</type>
+	<description>Sigil plugin for SmartyPants</description>
+	<engine>python3.4</engine>
+	<oslist>unx,win,osx</oslist>
+	<autostart>true</autostart>
+</plugin>
