@@ -1,0 +1,23 @@
+name: Build plugins
+
+on:
+  release:
+    types:
+    - published
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: |
+          zip -r smartypants.zip smartypants/
+          zip -r pta-cleanup.zip pta-cleanup/
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            smartypants.zip
+            pta-cleanup.zip

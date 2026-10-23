@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<name>pta-cleanup</name>
+	<author>PTA</author>
+	<version>0.0.1</version>
+	<type>edit</type>
+	<description>some epub3 cleanup to my liking</description>
+	<engine>python3.4</engine>
+	<oslist>unx,win,osx</oslist>
+	<autostart>true</autostart>
+	<autoclose>true</autoclose>
+</plugin>
