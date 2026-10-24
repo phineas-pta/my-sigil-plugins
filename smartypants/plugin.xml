@@ -2,10 +2,11 @@
 <plugin>
 	<name>smartypants</name>
 	<author>PTA</author>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<type>edit</type>
 	<description>Sigil plugin for SmartyPants</description>
 	<engine>python3.4</engine>
 	<oslist>unx,win,osx</oslist>
 	<autostart>true</autostart>
+	<autoclose>true</autoclose>
 </plugin>

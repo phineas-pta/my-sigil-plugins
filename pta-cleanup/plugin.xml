@@ -2,7 +2,7 @@
 <plugin>
 	<name>pta-cleanup</name>
 	<author>PTA</author>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<type>edit</type>
 	<description>some epub3 cleanup to my liking</description>
 	<engine>python3.4</engine>
