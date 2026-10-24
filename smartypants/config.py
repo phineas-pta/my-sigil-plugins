@@ -46,13 +46,13 @@ DEFAULT_PREFERENCES = {
 	# i left out "b", "d", "w" because it seems duplicated
 }
 
-def validate_prefs(prefs: dict) -> bool:
+def validate_prefs(prefs: dict) -> str:
 	if prefs["D"]["enabled"] and prefs["i"]["enabled"]:
-		return False
+		return "choose only 1 option for dashes"
 	elif prefs["h"]["enabled"] + prefs["s"]["enabled"] + prefs["u"]["enabled"] > True:
-		return False
+		return "choose only 1 option for output"
 	else:
-		return True
+		return ""
 
 def combine_prefs(prefs: dict) -> int:
 	res = _Attr.set0

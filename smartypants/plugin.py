@@ -24,8 +24,9 @@ def run(bk: "BookContainer") -> int:
 	app.exec()
 	new_prefs = app.app_results
 
-	if not validate_prefs(new_prefs):
-		raise ValueError("conflicted preferences")
+	msg = validate_prefs(new_prefs)
+	if msg != "":
+		raise ValueError(msg)
 	bk.savePrefs(new_prefs)
 
 	attr = combine_prefs(new_prefs)
