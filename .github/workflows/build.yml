@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: |
-          zip -r smartypants.zip smartypants/
-          zip -r pta-cleanup.zip pta-cleanup/
+          for folder in smartypants pta-cleanup vi-word2int; do
+            zip -r "${folder}.zip" "${folder}/"
+          end
       - uses: softprops/action-gh-release@v3
         with:
           files: |
-            smartypants.zip
-            pta-cleanup.zip
+            *.zip

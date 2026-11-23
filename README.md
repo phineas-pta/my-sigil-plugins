@@ -17,3 +17,7 @@ credit: the file `smartypants.py` is copied directly from above source
 folder path: [`pta-cleanup/`](pta-cleanup/)
 
 clean excessive spacing in all `.xhtml` files
+
+## convert words to integers for Vietnamese to my liking
+
+folder path: [`vi-word2int/`](vi-word2int/)

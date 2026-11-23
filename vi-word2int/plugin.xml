@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<name>vi-word2int</name>
+	<author>PTA</author>
+	<version>0.0.1</version>
+	<type>edit</type>
+	<description>Convert words to integers for Vietnamese to my liking</description>
+	<engine>python3.4</engine>
+	<oslist>unx,win,osx</oslist>
+	<autostart>true</autostart>
+	<autoclose>false</autoclose>
+</plugin>

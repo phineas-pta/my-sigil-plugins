@@ -8,18 +8,18 @@ def clean_nav(text: str) -> str:
 	res = re.sub(r"<li>\s+(<a href.+</a>)\s+</li>", r"<li>\1</li>", res) # too much spacing in table of contents
 	return res
 
-_spacing1 = re.compile(r"  +(,\.!\?;)") # too much spacing before punctuation
-_spacing2 = re.compile(r"(\w)  +(\w)") # too much spacing between words
-_spacing3 = re.compile(r"<p>\s+")
-_spacing4 = re.compile(r"\s+</p>")
-_spacing5 = re.compile(r"\(\s+")
-_spacing6 = re.compile(r"\s+\)")
+
+_PATTERNS = { # format: "replacement": "pattern"
+	r"\1": re.compile(r"  +(,\.!\?;)"), # too much spacing before punctuation
+	r"\1 \2": re.compile(r"(\w)  +(\w)"), # too much spacing between words
+	"<p>": re.compile(r"<p>\s+"),
+	"</p>": re.compile(r"\s+</p>"),
+	"(": re.compile(r"\(\s+"),
+	")": re.compile(r"\s+\)"),
+}
+
 def clean_spacing(text: str) -> str:
 	res = text.replace(' class="sigil_not_in_toc"', "")
-	res = _spacing1.sub(r"\1", res)
-	res = _spacing2.sub(r"\1 \2", res)
-	res = _spacing3.sub("<p>", res)
-	res = _spacing4.sub("</p>", res)
-	res = _spacing5.sub("(", res)
-	res = _spacing6.sub(")", res)
+	for repl, patt in _PATTERNS.items():
+		res = patt.sub(repl, res)
 	return res
