@@ -15,8 +15,8 @@ jobs:
       - uses: actions/checkout@v7
       - run: |
           for folder in smartypants pta-cleanup vi-word2int; do
-            zip -r "${folder}.zip" "${folder}/"
-          end
+            zip -r "${folder}.zip" "${folder}/";
+          done
       - uses: softprops/action-gh-release@v3
         with:
           files: |
