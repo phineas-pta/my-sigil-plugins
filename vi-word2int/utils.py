@@ -29,20 +29,20 @@ _MULTIPLIER_MAP = {
 	"ngàn": 1_000,
 	"vạn": 10_000,
 	"triệu": 1_000_000,
-	# skip anything above 10^9
+	# skip anything above 10^9 for easier parsing
 }
 
 _START = ("một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín", "mười") # enforce first word
 _TERMS = tuple(_UNIT_MAP.keys()) + tuple(_MULTIPLIER_MAP.keys())
 _END   = tuple(i for i in _TERMS if i not in ("năm", "không", "linh", "lẻ", "triệu")) # enforce last word, other multipliers are left as-is
 _SPACE = chr(32)
-PATTERN = re.compile("".join([
-	r"\b",
-	"(?:", "|".join(_START), ")",
-	"(?:", _SPACE, "(?:", "|".join(_TERMS), ")", ")", "*",
-	_SPACE, "(?:", "|".join(_END), ")",
+PATTERN = re.compile(
 	r"\b"
-]), flags=re.IGNORECASE)
+	+ "(?:" + "|".join(_START) + ")"
+	+ "(?:" + _SPACE + "(?:" + "|".join(_TERMS) + ")" + ")" + "*"
+	+ _SPACE + "(?:" + "|".join(_END) + ")"
+	+ r"\b"
+, flags=re.IGNORECASE)
 _ERROR_CODE = -1
 
 
@@ -52,7 +52,7 @@ def word2int(match: re.Match) -> str: # usage: PATTERN.sub(word2int, text)
 
 	# cases: not a number → skip
 	if len(words) == 2: # pattern guarantees that words[0] in _START and words[1] in _END
-		if words[0] == "mười" and words[1] in ("mươi", "tư"):
+		if words[0] == "mười" and words[1] in ("mươi", "tư", "mốt", "mười", "trăm"):
 			return text
 		if words[0] != "mười" and words[1] in _UNIT_MAP:
 			return text
@@ -60,9 +60,9 @@ def word2int(match: re.Match) -> str: # usage: PATTERN.sub(word2int, text)
 		return text
 
 	res_start, res_mid, res_end = [], [], []
-	if words[0] == "năm" and words[1] in _START: # year
+	if words[0] == "năm" and words[1] in _START and words[1] != "sáu": # year
 		res_start.append(words.pop(0))
-	if len(words) > 2 and words[-1] == "một": # unit price, cannot be filtered with regex because special case "mười một"
+	if len(words) > 2 and words[-2] != "mười" and words[-1] == "một": # unit price, cannot be filtered with regex because special case "mười một"
 		res_end.append(words.pop())
 
 	res_int = _parse_int(_SPACE.join(words))
@@ -109,7 +109,7 @@ def _parse_sub_1000(token: str) -> int: # only return value <1000
 	prev_word, prev_mult = "", ""
 	while len(words) > 0:
 		curr_word = words.pop(0) # parse from left to right
-		if curr_word == prev_mult or (prev_word in _START[:-1] and curr_word in _START):
+		if curr_word == prev_mult or (prev_word in _START[:-1] and curr_word in _START): # grammar peculiar cases
 			return _ERROR_CODE
 
 		if curr_word in _UNIT_MAP:
